@@ -1,0 +1,4 @@
+% Hej förfan
+FORW 3     .    % Kbry
+BACK   3.
+REP 6 "Forw 4".
