@@ -1,0 +1,29 @@
+// Implement a parametrized LinkedList
+// Add annotations to the methods and field to guarantee
+// that
+// - T is the security policy controlling the references and
+//   the length of the list
+// - T2 is the security policy controlling the content of the list
+
+public class  Node  [label T, label T2] {
+	public int value;
+	public Node next;
+
+	public Node(int {T2} value) {
+      ...
+	}
+
+	public void add(int value)  {
+      ...
+	}
+
+	public int length() {
+      ...
+	}
+
+	// We throw an exception if i < 0
+	//  or if i > len(this)
+	public int get(int i)  throws Exception {
+      ...
+	}
+}

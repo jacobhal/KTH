@@ -1,0 +1,124 @@
+secret-key passwords: kbry123, kbry12345.
+
+----------------------------------------IMPORTING----------------------------------------
+192:Datasäkerhet Jacob$ gpg --import public.key
+gpg: key E0438FE3: public key "gpg-both <gpg-both@dasak.csc.kth.se>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+gpg: no ultimately trusted keys found
+
+----------------------------------------VERIFY FINGERPRINT----------------------------------------
+192:Datasäkerhet Jacob$ gpg --fingerprint
+/Users/Jacob/.gnupg/pubring.gpg
+-------------------------------
+pub   2048R/E0438FE3 2012-09-11 [expires: 2022-09-09]
+      Key fingerprint = 9314 F2F3 6834 8CD4 0045  F8ED 4A37 69F6 E043 8FE3
+uid                  gpg-both <gpg-both@dasak.csc.kth.se>
+uid                  Computer Security (course key) <gpg@dasak.csc.kth.se>
+uid                  gpg-sign <gpg-sign@dasak.csc.kth.se>
+uid                  gpg-crypt <gpg-crypt@dasak.csc.kth.se>
+uid                  gpg-key <gpg-key@dasak.csc.kth.se>
+sub   2048R/3810D17A 2012-09-11 [expires: 2022-09-09]
+
+----------------------------------------GENERATE SECRET KEY----------------------------------------
+192:Datasäkerhet Jacob$ gpg --gen-key         
+gpg (GnuPG) 1.4.19; Copyright (C) 2015 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection? 1
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (2048) 
+Requested keysize is 2048 bits   
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 2m
+Key expires at Mon Jan 11 12:39:47 2016 CET
+Is this correct? (y/N) y
+                        
+You need a user ID to identify your key; the software constructs the user ID
+from the Real Name, Comment and Email Address in this form:
+    "Heinrich Heine (Der Dichter) <heinrichh@duesseldorf.de>"
+
+Real name: Jacob Hallman
+Email address: jacobhal@kth.se
+Comment: DD2395               
+You selected this USER-ID:
+    "Jacob Hallman (DD2395) <jacobhal@kth.se>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+You need a Passphrase to protect your secret key.    
+
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+.............+++++
+.....+++++
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+..+++++
++++++
+gpg: key D3325197 marked as ultimately trusted
+public and secret key created and signed.
+
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   3  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 3u
+gpg: next trustdb check due at 2016-01-10
+pub   2048R/D3325197 2015-11-12 [expires: 2016-01-11]
+      Key fingerprint = E231 38CA 5B17 080A 860B  8F53 4415 2562 D332 5197
+uid                  Jacob Hallman (DD2395) <jacobhal@kth.se>
+sub   2048R/F7AF5C1F 2015-11-12 [expires: 2016-01-11]
+
+----------------------------------------SIGN PUBLIC KEY----------------------------------------
+Notes: using lsign instead of sign for a local signature only. Dasak is the name used in the public key added to my
+keyring and gpg finds the first that matches the name or ID.
+
+gpg --lsign-key dasak
+
+
+
+----------------------------------------EXPORT KEY----------------------------------------
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1
+
+mQENBFZEerEBCADeuevMaS/69Ytlte4PJcPa39NA0qqB+Qek+6wL+JMz25zMck4L
+aSkH/Pa8UuR8PvLTQ+x6RTZMx6/4JiqRjofPQjeYaahJUQEyECm3ojTDj45sVScl
+KVXc4uvYk7xdTSkM7oaC19Fp1SSUcLXwjX+bggyj58DO6A1NNJr9EI7c9ANtjSU3
+eduOWafYxhyzt4lR/AvYFn4izysNAWyg1OICkdVmarAu9KeKTfk9KKugD+WIl2LN
+OZ5rO9QcXyBnPo43g6rbFC6n8D5IxgqHsLcyWM1qatG3DMJq9OUVHNNqcZZhRs1H
+N6TEphBgRHm9tbp3TF9QeXf73tr9qUI/l1+jABEBAAG0KEphY29iIEhhbGxtYW4g
+KEREMjM5NSkgPGphY29iaGFsQGt0aC5zZT6JAT4EEwECACgFAlZEerECGwMFCQBP
+GgAGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEEQVJWLTMlGXhFMIAMyeo+7+
+3P6cQ4H3XoK6p+qNH/+TIjnVqNyUJi8awvfIxcwvLhAtFpEPn53EEkibxRBBucS0
+/iLbacGzGCGcgt357/0QVfyfIxVnUIdVsqnPfKdfGMixOZDMSBpF51kRo7+3n3cm
+7J16XBQKJpJAdqGAPn64fvd+4MShDEavQK7EB2Lw3ROVmxwzLkPk9ycIbWQRg/SK
+lvcEkPTituRvJLKm2JQNPyeLQQ55k8mfYkwgY+Di9eftbK9PT1UjqOJJNFyA9l0e
+TChsxNiVSELN1eFN+W1BKpcN9/YDwPGVT5HWOHBa5J79Ckm7iPOSE/v2iMt7ZTeN
+9VocI3HdEPJctCC5AQ0EVkR6sQEIANoYEb3NMSFA/MZ/7l6Q0Ow8EQFRoNZXK+l8
+EP+xKHaY5f380KTjs5rquykcbkLXVOjB3ii2kH8RgahIaogA3f6ZdpNUrUrU1JT9
+JqjqoZ/qCEQF5u+Cc4nG9vUKpKlFzeUst/28n6YFczUoreLYOJqaJ3eEsSO3Ctf8
+wAZdRngcMa3MjgZQnHvYhOripE6ywsjOgJ5n+XCInRLEnRUONlkj2nNEpibXuf+g
+RYOeOERUa5SktGUb+4EqKU8XDQZmwIdb2dG2RAunQNuE0nOeJFdWsnPmG45ku9Nv
+Af5TaFyDTn4Z60fmleCf4TMQZZ6q9BYLkjhRUsLJg6Cb1V5xb2kAEQEAAYkBJQQY
+AQIADwUCVkR6sQIbDAUJAE8aAAAKCRBEFSVi0zJRlxutB/9I2v1kU3FVqJIt9b/5
+iar36sWC8zc4Bn3NO0y7VRJY2yRjU5KYB474fKlAnIa2uyKSgwB0QHX3n4ge2jr9
+8AuzPvM5mzPi9sdEJP+T0i3Xd3lHtd3kCyR8M9QsLaj+z3uRWpIuNT4jedPD+hsB
+cpRLgHJ5W3qyJXHqzMrSAvNnleoD4jsvzsGJz3L7L4kOsKm9t2SrqidzEbhSgJYr
+MmM8WTy528YO0yDVrvLd1fel9jErtg26imV/pyiAp9ler2wgViNuWgLfUnibrqfd
+fQao9nylGbsXnaTk34YYKUrZRzCxYVsNePp/iw+b1eNe62Xe+Op62s78enZVsp2u
+uR67
+=NsYo
+-----END PGP PUBLIC KEY BLOCK-----

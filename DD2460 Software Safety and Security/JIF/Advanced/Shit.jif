@@ -1,0 +1,54 @@
+// Implement a parametrized LinkedList
+// Add annotations to the methods and field to guarantee
+// that
+// - T is the security policy controlling the references and
+//   the length of the list
+// - T2 is the security policy controlling the content of the list
+
+public class  Node  [label T, label T2] {
+  public int {T2} value;
+  public Node [T, T2] {T} next;
+
+  public Node {T2}(int {T2} value) {
+      this.value = value;
+      this.next = null;
+  }
+
+  public void add {T2}(int {T2} value)  {
+    if(this.next == null) {
+      //this.next = new Node[T, T2](value);
+    } else {
+      //this.next.add(value);
+    }
+  }
+
+  public int {T} length {T} (){
+    if(this.next == null) {
+      return 1;
+    }
+    try {
+      return this.next.length() + 1;
+    } catch (NullPointerException e) {
+      return -1;
+    }
+  }
+
+  // We throw an exception if i < 0
+  public int {T2} get {T} (int {T} i) : {T} throws ArrayIndexOutOfBoundsException {
+      if(i < 0){
+        throw new ArrayIndexOutOfBoundsException();
+      }
+      if(i == 0) {
+        return this.value;
+      }
+      if(this.next == null) {
+        throw new ArrayIndexOutOfBoundsException();
+      }
+      try {
+        return this.next.get(i-1);
+      } catch (NullPointerException e) {
+        return -1;
+      }
+      
+  }
+}

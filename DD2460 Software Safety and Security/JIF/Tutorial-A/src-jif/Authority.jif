@@ -1,0 +1,22 @@
+/*
+The authority is essentially the capability
+to act for some set of principals. The authority
+of a principal is required to perform actions that
+may compromise the security of a principal, such as
+downgrading information.
+
+the class containing the code may declare that it has
+the authority of some principal using an authority clause 
+*/
+public class Authority authority (Alice & Bob) {
+	void doA() {
+        // this method body does not have the authority
+        // (no "where authority" clause)
+    }	
+	void doB() where authority (Alice & Bob) {
+        // this entire method body has the authority of both Alice and Bob
+    }	
+    void doC() where authority (Alice) {
+        // this entire method body has the authority of Alice
+    }	
+}

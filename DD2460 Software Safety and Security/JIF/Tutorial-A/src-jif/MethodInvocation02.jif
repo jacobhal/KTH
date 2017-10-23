@@ -1,0 +1,19 @@
+
+public class MethodInvocation02 {
+	static boolean {*->Bob} a;
+
+	// The execution of hello can onlydepends on informations accessible by Bob or Chuck
+	public static void hello{*->Bob,Chuck}(boolean {*->Bob,Chuck} x) {
+		a = x;
+	}
+
+	// The execution of main does not depend on any confidential information
+	public static void main{}(String [] params) {
+		int {Alice->Bob,Chuck} x = 10;
+		boolean {Alice->Bob,Chuck,Dolores} y = true;
+		
+		if (x > 0) {
+			hello(y);
+		}
+	}
+}

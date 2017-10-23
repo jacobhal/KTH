@@ -1,0 +1,49 @@
+/* Background image */
+html { 
+  background: url(../images/homebg.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+	padding-bottom: 10px;
+	border-bottom: solid 2px black;
+}
+
+/* General Navbar styling */
+nav#navbarHome {
+	background-color: yellow;
+	padding: 15px 15px 30px 15px;
+
+}
+
+/* Navbar brand */
+#navbar-brand {
+	font-size: 40px;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-collapse {
+	margin-top: 18px;
+	font-size: 20px;
+}
+
+/* Jumbotron */
+div.jumbotron {
+	position: absolute;
+	top: 20%;
+	background-color:rgba(231, 232, 229, 0.5);
+	width: 50%;
+	height: 400px;
+	padding: 10px 10px 10px 10px;
+	margin: 10px;
+	overflow: scroll;
+}
+
+div.jumbotron a.btn {
+	background-color: yellow;
+	border: solid 2px black;
+}

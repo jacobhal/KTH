@@ -1,0 +1,39 @@
+// Replace Ts with the least restrictive labels that enable correct compilation
+
+public class Ex02 {
+	public int {Alice&Chuck->Bob;Alice->Alice,Bob;Chuck->Chuck,Bob} x;
+
+	public void add1{Alice->Alice,Bob;Chuck->Chuck,Bob}(int {Alice->Alice,Bob}y1, int {Chuck->Chuck,Bob}y2) {
+		x = y1 + y2;
+	}
+	public void add2{Alice&Chuck->Alice,Bob}(int {Alice&Chuck->Bob}y1, int {Alice&Chuck->Bob}y2) {
+		x = y1 + y2;
+	}
+	public void add3{Alice&Chuck->Alice,Bob}(int {Alice->Alice,Bob;Chuck->Chuck,Bob;Alice&Chuck->Alice,Bob}y1, 
+		int {Alice->Alice,Bob;Chuck->Chuck,Bob;Alice&Chuck->Alice,Bob}y2) {
+		x = y1 + y2;
+	}
+
+	public static void main{_->_}(String [] args) {
+		Ex02 o = new Ex02();
+		int {Alice->Alice,Bob} v1 = 10;
+		int {Chuck->Chuck,Bob} v2 = 20;
+		boolean {Alice&Chuck->Alice,Bob} v3 = true;
+
+		o.add1(v1, v2);
+
+		if (v3)
+			o.add3(v1, v2);
+		else
+			o.add3(v2, v1);
+			
+		int {Alice&Chuck->Bob} w1 = v1;
+		int {Alice&Chuck->Bob} w2 = v2;
+		if (!v3) {
+			w1 = v2;
+			w2 = v1;
+		}
+		o.add2(w1,w2);
+	}
+}
+

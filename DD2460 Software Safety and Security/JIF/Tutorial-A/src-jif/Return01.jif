@@ -1,0 +1,13 @@
+public class Return2 {
+	static int {Alice->Alice,Bob,Chuck}x;
+	int {Alice->Alice,Bob,Chuck}y;
+	
+	public void hello() {
+		Return2 {Alice->Alice}a = new Return2();
+		Return2 {Alice->Bob}b = new Return2();
+		a = b;
+		//b = a;
+		
+		//x = this.y;
+	}
+}

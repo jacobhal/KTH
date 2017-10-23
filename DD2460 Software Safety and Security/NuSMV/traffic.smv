@@ -1,0 +1,78 @@
+MODULE sensor(street)
+VAR
+  state: {on, off};
+
+ASSIGN
+  next(state) := case
+    -- If Red light and cars are waiting, the sensor is on
+    state = on & street = RED: on;
+    -- If Red light and no cars are waiting, the sensor is off
+    state = off & street = RED: off;
+    -- If Green light and cars waiting, sensor can be on or off
+    state = on & street = GREEN: {on, off};
+    TRUE: state;
+  esac;
+
+
+MODULE main
+VAR
+  car_in_box: boolean;
+  street1: {GREEN, RED};
+  street2: {GREEN, RED};
+  sensor1: sensor(street1);
+  sensor2: sensor(street2);
+
+ASSIGN
+  init (car_in_box) := FALSE;
+  init (street1) := RED;
+  init (street2) := RED;
+
+  next (car_in_box) := case
+    -- If both lights are red, there is no car in the intersection in the next state
+    street1 = RED & street2 = RED: FALSE;
+    -- If any of the light are green, there might be a car in the intersection in the next state
+    street1 = RED & street2 = GREEN: {TRUE, FALSE};
+    street1 = GREEN & street2 = RED: {TRUE, FALSE};
+    TRUE: car_in_box;
+  esac;
+
+  next (street1) := case
+    -- If green now and no cars waiting, red in next state
+    sensor1.state = off & street1 = GREEN: RED;
+    -- If this street has cars waiting but others does not, switch to green
+    sensor1.state = on & sensor2.state = off: GREEN;
+    -- If other street green now and this street has cars waiting, switch to green
+    street2 = GREEN & sensor1.state = on: GREEN;
+    TRUE: street1;
+  esac;
+
+  next (street2) := case
+    -- If green now and no cars waiting, red in next state 
+    sensor2.state = off & street2 = GREEN: RED;
+    -- If this street has cars waiting but others does not, switch to green
+    sensor2.state = on & sensor1.state = off: GREEN;
+    -- If other street green now and this street has cars waiting, switch to green
+    street1 = GREEN & sensor2.state = on: GREEN;
+    TRUE: street2;
+  esac;
+
+DEFINE 
+  both_red := (street1 = RED & street2 = RED);
+
+-- At most one traffic light in any direction is ever green
+LTLSPEC
+  G( (street1 = GREEN & street2 = RED) | (street1 = RED & street2 = GREEN) | both_red )
+
+-- It takes one transition for cars to clear the intersection
+LTLSPEC
+  G( car_in_box & !both_red -> next(car_in_box) = FALSE)
+
+-- Any car waiting in front of a light will eventually get a green light
+LTLSPEC
+  G( sensor1.state = on -> F street1 = GREEN ) &
+  G( sensor2.state = on -> F street2 = GREEN )
+
+FAIRNESS
+  street1 = GREEN
+FAIRNESS
+  street2 = GREEN

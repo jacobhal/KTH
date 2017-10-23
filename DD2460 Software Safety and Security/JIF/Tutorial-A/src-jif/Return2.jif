@@ -1,0 +1,11 @@
+public class Return01 {
+	static int {Alice->Alice,Bob,Chuck}x;
+	public static int hello() : {Alice->Alice,Bob} {
+		return x;
+	}
+	
+	public static void test() {
+		int {Alice->Alice} y = hello();
+		//x = hello();
+	}
+}

@@ -1,0 +1,17 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class Sample04c {
+	public static void main(String [] args) {
+		
+		int {Alice -> Bob} v1 = 1;
+		int {Alice -> Bob} v2 = 2;
+		int {Alice -> Chuck} v3 = 3;
+		if (v2 > 0) {
+			if (v3 > 0) {
+//    			v1 = 10;
+    		}
+		}
+	} 
+}

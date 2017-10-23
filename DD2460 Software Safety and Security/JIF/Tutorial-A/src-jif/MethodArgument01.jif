@@ -1,0 +1,15 @@
+
+public class MethodArgument01 {
+	static boolean {Bob->Bob} a;
+
+	// TODO check act-for on dolores
+	public static void hello{Bob->Bob,Chuck}(boolean {Bob->Bob,Alice} v) {
+		a = v;
+	}
+	
+	public static void main{}(String [] params) {
+		boolean {Bob->Alice,Bob,Dolores} cnd = true;
+		hello(cnd);
+	}
+
+}

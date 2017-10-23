@@ -1,0 +1,10 @@
+public class References {
+	public static void hello() {
+		int {Bob->Alice,Bob} x = 10;
+		Integer {Bob->Bob} y = new Integer(0);
+		Integer {Bob->Bob} z = new Integer(0);
+		if (z == y) {
+			//x = 1;
+		}
+	}
+}

@@ -1,0 +1,14 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class Sample04 {
+	public static void main(String [] args) {
+		
+		boolean {Alice -> Bob,Chuck} l = false;
+		boolean {Alice -> Bob} h = true;
+		if (h) {
+    		//l = true;
+		}
+	} 
+}

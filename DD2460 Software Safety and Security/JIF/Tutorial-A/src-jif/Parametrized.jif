@@ -1,0 +1,13 @@
+public class Parametrized[label L1, label L2]  {
+	int {*L1} x;
+	int {*L2} y;
+	
+	int {*L1;*L2;Alice->Bob} z;
+	
+	public static void test() {
+		Parametrized[{Alice->Alice}, {Alice->Bob}] x = new Parametrized[{Alice->Alice}, {Alice->Bob}]();
+		//Parametrized[{Alice->Alice}, {Alice->Alice,Bob}] x1 = new Parametrized[{Alice->Alice}, {Alice->Bob}]();
+		//Parametrized[{Alice->Alice}, {Alice->Alice&Bob}] x1 = new Parametrized[{Alice->Alice}, {Alice->Bob}](); 
+		
+	}
+}

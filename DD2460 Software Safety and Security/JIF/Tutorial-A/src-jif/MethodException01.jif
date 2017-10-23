@@ -1,0 +1,23 @@
+
+public class MethodException01 {
+	static int {Bob->Bob} a;
+
+	public static void hello{Bob->Bob,Chuck}
+						(int {Bob->Bob}x, int {Bob->Bob,Chuck}y)
+						: {Bob->Bob,Chuck}
+//						: {Bob->Bob,Chuck,Alice}
+						 throws ArithmeticException {
+		a = x/y;
+	}
+	
+	public static void main{}(String [] args) {
+		int {Bob->Bob} x = 1;
+		int {Bob->Bob,Chuck} y = 1;
+		int {Bob->Alice} z;
+		try {
+			hello(x,y);
+			z = 1;
+		} catch (ArithmeticException ex) {
+		}
+	}
+}

@@ -1,0 +1,279 @@
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+	
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+body, html {
+	height: 100%;
+}
+
+/* Jumbotron */
+div.jumbotron {
+	position: absolute;
+	top: 20%;
+	background-color:rgba(231, 232, 229, 0.5);
+	width: 50%;
+	height: 400px;
+	padding: 10px 10px 10px 10px;
+	margin: 10px;
+	overflow: scroll;
+}
+
+div.jumbotron a.btn {
+	background-color: #edf25c;
+	border: solid 2px black;
+}
+
+
+.clear { 
+	clear: both !important; 
+}
+
+/* General styling */
+.btn {
+	background-color: #edf25c;
+	border: solid 2px black;
+}
+
+/* General Navbar styling */
+nav#navbarMain {
+	padding: 15px 15px 30px 15px;
+	background-color:rgb(183, 183, 179);
+	margin-bottom: 0;
+
+}
+
+nav#navbarHome {
+	background-color: #edf25c;
+	padding: 15px 15px 30px 15px;
+
+}
+
+#navbar-brand {
+	font-size: 40px;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-collapse {
+	margin-top: 18px;
+	font-size: 20px;
+}
+
+/* Sidebar */
+
+div#sidebar {
+	float: left;
+    width: 20%;
+    border: 5px solid #000;
+    border-top: 3px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    height: 100%;
+}
+
+div#sidebar > *:not(.box1):not(.box2) {
+	margin-left: 10px;
+}
+
+div#sidebar label {
+	margin-right: 10px;
+}
+
+div#sidebar input#people {
+	width: 80px;
+}
+
+div#sidebar .box1 {
+	background-color: rgb(183, 183, 179);
+	border-top: solid 2px black;
+	border-bottom: solid 2px black;
+	float: left;
+	width: 100%;
+	padding: 0 10px 0 10px;
+}
+
+div#sidebar .box2 {
+	float: left;
+	width: 100%;
+	padding: 0 10px 0 10px;
+}
+
+div#sidebar .box2 h4 {
+	color: red;
+}
+
+div#sidebar .box2 {
+	text-align: center;
+}
+
+div#sidebar .box2 a {
+	background-color: #edf25c;
+	border: solid 2px black;
+}
+
+/* Main content nav and list of dishes */
+div#selectDish, div#previewDish {
+	float: left;
+	display: block;
+	width: 80%;
+	border: 5px solid #000;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Main content nav and list of dishes */
+div#previewDish {
+	padding: 30px;
+	border: 2px solid #000;
+}
+
+/* List of dishes nav*/
+div#main-nav-inner {
+	border: solid 2px black;
+	padding: 20px;
+	padding-left: 36px;
+	margin: 0;
+	border-right: 0;
+	border-left: 0;
+	background-color: #edf25c;
+}
+div#main-nav-inner h2{
+	border-bottom: solid 2px black;
+
+}
+
+.form-control-modified {
+	width: auto !important;
+	display: inline-block !important;
+}
+
+#dish-select {
+	margin-left: 80px;
+	width: 200px !important;
+}
+
+.form-inline {
+	padding: 0 0 20px 0;
+}
+
+
+
+
+/* List of dishes content */
+
+div#dishlist {
+	padding: 60px 40px 40px 30px;
+	overflow: auto;
+	border-left: 2px solid #000;
+}
+
+div.col-sm-2:not(:first-child,:last-child) {
+  padding-right:20px;
+  padding-left:20px;
+}
+
+div.thumbnail img {
+	border: solid 2px black;
+	margin-bottom: 0;
+	width: 100%;
+	height: 100px !important;
+}
+
+div.row div.thumbnail h3{
+	overflow: auto;
+	border: solid 2px black;
+	border-top: none;
+	width: 100%;
+	margin-top: 0;
+	text-align: center;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.caption {
+	margin: 0 !important;
+	padding: 0 !important;
+
+}
+
+div.caption p {
+	height: 100px;
+	overflow: auto;
+}
+
+
+/* Ingredients */
+
+div.ingredients {
+	background-color: #edf25c;
+}
+
+
+div#dinnerOverviewNav, div#dinnerPreparationNav {
+	height: 80px;
+	background-color: #edf25c;
+	padding: 10px 40px 10px 40px;
+}
+
+div#dinnerOverviewNav .btn, div#dinnerPreparationNav .btn {
+	vertical-align: middle;
+	display: block;
+	margin-top: 12px;
+}
+
+div#dinnerOverview, div#dinnerPreparation {
+	padding: 0 !important;
+	margin: 0 !important; 
+	width: 100%;
+	text-align: center;
+	padding: 30px;
+}
+
+div#dinnerOverviewContent, div#dinnerPreview {
+	padding: 30px 0 0 0 !important;
+}
+
+div#dinnerOverview .col-sm-3 {
+	margin: 0 auto;
+}
+
+div#dinnerOverview .btn {
+	width: 260px;
+	height: 40px;
+}
+
+div#dinnerPreview {
+	padding: 20px;
+}
+
+div.sidebarDish {
+	overflow: hidden;
+	padding: 0 10px 0 10px;
+	margin: 10px 0 10px 0;
+	border: 1px solid #000;
+	background-color:rgb(183, 183, 179);
+}
+
+div.sidebarDish * {
+	color: #000 !important;
+}
+
+h4.sidebarDishName {
+	text-align: left;
+	width: 50%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

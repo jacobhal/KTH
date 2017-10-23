@@ -1,0 +1,244 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <limits>
+#include <stack>
+#include <algorithm>
+
+struct Point {
+	double a;
+	double b;
+	int   id;
+};
+
+struct Edge {
+	int firstNode;
+	int secondNode;
+	int distance;
+
+	void print() {
+		/*
+		std::cout << "(" << a.a << ", " << a.b << ") to (" << b.a << ", " << 
+		b.b << ") Distance: " << distance << std::endl; 
+		*/
+	}
+
+	void print_ids() {
+		std::cout << firstNode << " to " << secondNode << ", " << " Distance: " << distance << std::endl; 
+	}
+};
+
+// Edge distance compare operator
+bool operator< (const Edge& a, const Edge& b) {
+	return a.distance < b.distance;
+}
+
+// Structure for union by rank (rank associated with depth of tree which allows us to keep the resulting tree small)
+struct Subset {
+	int parent;
+	int rank;
+};
+
+
+// Function declarations
+int distance(Point, Point);
+int MST_Kruskals();
+void DFS(int, std::vector<std::vector<int>>);
+void link(int, int, std::vector<Subset> &);
+int find(std::vector<Subset> &, int);
+void Union(std::vector<Subset>&, int, int);
+
+
+// Global variables
+std::vector <Point> points;
+std::vector <Edge> edges;
+
+std::vector<bool> visited;
+std::vector<std::vector<int>> adjMatrix;
+int nrOfPoints = 0;
+
+using namespace std;
+int main() {
+
+	cin >> nrOfPoints;
+
+	double a;
+	double b;
+	for(int i = 0; i < nrOfPoints; ++i) {
+		cin >> a;
+		cin >> b;
+		Point point;
+		point.a = a;
+		point.b = b;
+		point.id = i;
+		points.push_back(point);
+	}
+
+
+	for(int i = 0; i < nrOfPoints; ++i) {
+		for(int j = i+1; j < nrOfPoints; ++j) {
+			int dist = distance(points[i], points[j]);
+			Edge edge;
+			edge.firstNode = points[i].id;
+			edge.secondNode = points[j].id;
+			edge.distance = dist;
+			edges.push_back(edge);
+		}
+	}
+
+	points.clear();
+/*
+	for(int i = 0; i < edges.size(); ++i) {
+		edges[i].print_ids();
+	}
+*/
+
+	
+	int root = MST_Kruskals();
+
+	visited.resize(nrOfPoints);
+
+	for(int i = 0; i < visited.size(); ++i) {
+		visited[i] = false;
+	}
+
+	//cout << "Root: " << root << endl;
+	DFS(root, adjMatrix);
+	
+	
+
+	return 0;
+};
+
+
+int MST_Kruskals() {
+	// Sort edges
+	sort(edges.begin(), edges.end());
+
+	// Initialize tree vector
+	adjMatrix.resize(nrOfPoints, vector<int>(nrOfPoints));
+
+
+	for(int i = 0; i < adjMatrix.size(); ++i) {
+		for(int j = 0; j < adjMatrix[i].size(); ++j) {
+			adjMatrix[i][j] = 0;
+		}
+	}
+	
+
+	// Make-set, create a new set containing the single element x
+	vector<Subset> subsets(nrOfPoints);
+
+	// Initialize values for union by rank
+	for(int i = 0; i < subsets.size(); ++i) {
+		subsets[i].parent = i;
+		subsets[i].rank = 0;
+	}
+
+	int count;
+
+	for(int i = 0; i < edges.size(); ++i) {
+
+		int x = find(subsets, edges[i].firstNode);
+    	int y = find(subsets, edges[i].secondNode);
+
+    	// Check for cycles
+    	if(y != x) {
+    		count++;
+	    	adjMatrix[edges[i].firstNode][edges[i].secondNode] = 1;
+	    	adjMatrix[edges[i].secondNode][edges[i].firstNode] = 1;
+
+	    	Union(subsets, x, y);
+    	}
+
+    	if(count == nrOfPoints-1) {
+    		break;
+    	}
+
+	}
+
+	return find(subsets, 0);
+
+}
+
+/**
+ * @brief      Change parent of smaller root to the higher root
+ *
+ * @param[in]  x        { root x }
+ * @param[in]  y        { root y }
+ * @param[in]  subsets  The subsets
+ */
+void link(int x, int y, vector<Subset> &subsets) {
+
+	// Link the smaller rank tree to the higher rank tree for union by rank
+	if (subsets[x].rank < subsets[y].rank) {
+        subsets[x].parent = y;
+    } else if (subsets[x].rank > subsets[y].rank) {
+    	subsets[y].parent = x;
+    } else {
+    	subsets[x].parent = y;
+    	subsets[y].rank++;
+    }
+}
+
+/**
+ * @brief      Searches for the first match.
+ *
+ * @param      subsets  The subsets
+ *
+ * @return     { description_of_the_return_value }
+ */
+int find(vector<Subset> &subsets, int x) {
+	if(subsets[x].parent != x) {
+		subsets[x].parent = find(subsets, subsets[x].parent);
+	}
+
+	return subsets[x].parent;
+}
+
+void Union(vector<Subset> &subsets, int x, int y) {
+	link(find(subsets, x), find(subsets, y), subsets);
+}
+
+void DFS(int v, vector<vector<int>> adjMatrix) {
+	cout << v << endl;
+	visited[v] = true;
+
+	for(int i = 0; i < nrOfPoints; ++i) {
+		if(!visited[i] && adjMatrix[v][i]) {
+			DFS(i, adjMatrix);
+		}
+	}
+
+}
+
+
+/*
+void DFS(int v,  vector<vector<int>> adjMatrix) {
+	
+  
+  	stack<int> stack;
+  	stack.push(v);
+  	while (!stack.empty()) {
+  		v = stack.top();
+  		// Print chosen node
+        stack.pop();
+    	cout << v << endl;
+        if (visited[v]) {
+    		continue;
+    	}
+		visited[v] = true;
+  		cout << v << endl;
+	    for (int i = 0; i < points.size(); ++i) {
+	      	if (adjMatrix[v][i]) {
+	      		stack.push(i);
+	      	}
+	   	}
+	}
+}
+*/
+
+//Compute euclidian distance between two points (round to nearest integer)
+int distance(Point firstPoint, Point secondPoint) {
+	return sqrt(pow((secondPoint.a - firstPoint.a), 2) + pow((secondPoint.b - firstPoint.b), 2)) + 0.5;
+}

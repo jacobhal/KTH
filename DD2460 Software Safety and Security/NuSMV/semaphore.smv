@@ -1,0 +1,60 @@
+MODULE user(semaphore, active)
+VAR
+  state : { idle, entering, critical, exiting };
+ASSIGN
+  init(state) := idle;
+  next(state) := case
+    state = idle & active: { idle, entering };
+    state = entering & !semaphore & active: critical;
+    state = critical & active: { critical, exiting };
+    state = exiting & active: idle;
+    TRUE : state;
+  esac;
+
+MODULE main
+VAR
+  running : 1..2;
+  semaphore : boolean;
+  proc1 : user(semaphore, next(running) = 1);
+  proc2 : user(semaphore, next(running) = 2);
+ASSIGN
+  init(semaphore) := FALSE;
+  next(semaphore) := case
+    proc1.state = entering & next(running) = 1: TRUE;
+    proc1.state = exiting & next(running) = 1: FALSE;
+    proc2.state = entering & next(running) = 2: TRUE;
+    proc2.state = exiting & next(running) = 2: FALSE;
+    TRUE : semaphore;
+  esac;
+FAIRNESS
+  running = 1
+
+FAIRNESS
+  running = 2
+
+FAIRNESS
+  proc1.state = critical
+
+FAIRNESS
+  proc2.state = critical
+
+
+SPEC AG !(proc1.state = critical & proc2.state = critical); -- safety
+
+SPEC AG (proc1.state = entering -> AF proc1.state = critical); -- liveness
+
+
+-- Trace Description: CTL Counterexample 
+-- Trace Type: Counterexample 
+-- -> State: 1.1 <-
+--   running = 1
+--   semaphore = FALSE
+--   proc1.state = idle
+--   proc2.state = idle
+-- -> State: 1.2 <-
+--   proc1.state = entering
+-- -- Loop starts here
+-- -> State: 1.3 <-
+--   running = 2
+-- -> State: 1.4 <-
+

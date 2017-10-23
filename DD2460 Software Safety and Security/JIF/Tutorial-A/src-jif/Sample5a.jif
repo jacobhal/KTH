@@ -1,0 +1,10 @@
+// Introduction
+
+public class Sample05a {
+	public static void main(String [] args) {
+		int {Alice -> Bob} x = 1;
+		int {Alice -> Chuck} y = 5;
+		
+		int {x;y;Alice->*} z1 = x+y;
+	} 
+}

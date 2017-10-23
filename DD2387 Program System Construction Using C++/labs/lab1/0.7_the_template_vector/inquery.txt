@@ -1,0 +1,300 @@
+﻿Questions 0.1.3
+1. What does $* mean inside the makefile?
+----------------------------------------------------------------------------------------------------------------------------
+Vår parameter i anropet med make är hello_world.
+                make hello_world.out
+                
+                %.out : %.cpp                                        % ersätts med vår parameter
+                hello_world.out : hello_world.cpp
+
+
+                $* tar hänsyn till target (vänster om kolon) och skapar automatiskt variabler
+----------------------------------------------------------------------------------------------------------------------------
+2.         What is the purpose of -Wall and -g, when passed as arguments to g++?
+----------------------------------------------------------------------------------------------------------------------------
+-Wall betyder att compiler errors/warnings ska synas när man kompilerar
+-g betyder att debugging info ska inkluderas i exekveringsfilen. Detta gör att man kan använda debuggingverktyg senare.
+----------------------------------------------------------------------------------------------------------------------------
+3.        Is it possible to store the previous mentioned flags in a variable in the makefile?
+----------------------------------------------------------------------------------------------------------------------------
+Ja, det går att lagra flaggor med hjälp av macros. Dessa läggs typiskt sätt i början av en makefile.
+----------------------------------------------------------------------------------------------------------------------------
+4.        What is the difference between an object file, and an executable? 
+----------------------------------------------------------------------------------------------------------------------------
+En .o-fil innehåller inte tillräckligt med information för att köras själv. Varje objektfil kan referera till subrutiner som inte ligger lokalt vilket innebär att koden inte är redo att köras. Med hjälp av länkning löser man dessa referenser och bestämmer minnesadresser för koden och datan och får till sist en exekverbar fil.
+        
+Questions 0.2.1
+1.         If you invoke touch hello.cpp prior to invoking make; – How many files were rebuilt? –     Why? 
+----------------------------------------------------------------------------------------------------------------------------
+2 filer återbyggdes. Eftersom vi kallade på touch på hello.cpp hade modifikationstidsstämpeln ändrats. Då detta var en dependency för hello.o behövde denna återkompileras när vi kallar på make. På samma sätt behövde även main.out återkompileras då en dependency för denna var hello.o. 
+
+----------------------------------------------------------------------------------------------------------------------------
+2.        Why do you think make checks the modification timestamp of the relevant files as part of deciding what to do? 
+
+
+Att titta på modfikationstidsstämpeln är förmodligen det enklaste sättet för make att bestämma sig för vad som ska göras utan att behöva kontrollera hela filinnehållet.
+----------------------------------------------------------------------------------------------------------------------------
+Questions 0.2.6
+1. What is the purpose of std::cout, std::cerr, and std::clog, respectively?
+
+
+* std::cout skriver ut till användaren, faktiskt uttext.
+* std::cerr är till för felmeddelanden
+* std::clog är till för logghantering (tiddsstämplar och olika åtgärder)
+----------------------------------------------------------------------------------------------------------------------------
+Questions 0.3.2
+KOD
+int powerof (int x, int y) {
+     int res = 1;
+
+     for (int i = 0; i < y; ++i);
+       res *= x;
+
+     return res;
+   }
+
+   int main () {
+     int const a = 2;
+     int const b = 4;
+
+     int   x = powerof(a, b);
+     float y = 3.1415;
+
+     std::cout << a << "^" << b << " = " << x << ";\n";
+
+     if (y == 3.1415)
+       std::cout << y << " is equal to 3.1415!\n";
+     else
+       std::cout << y << " is not equal to 3.1415!\n";
+   }
+----------------------------------------------------------------------------------------------------------------------------
+1. Why does not powerof return the expected value (16), when invoked with 2 and 4? 
+----------------------------------------------------------------------------------------------------------------------------
+Returnerar inte 16 eftersom for-loopen uppfattas som tom då semikolon sätts direkt efter.
+----------------------------------------------------------------------------------------------------------------------------
+1. Why does not y compare equal to 3.1415?
+----------------------------------------------------------------------------------------------------------------------------
+y tolkas som en double.
+----------------------------------------------------------------------------------------------------------------------------
+1. Is there any difference in behavior if we compare y to 3.1415f, if so; why?
+----------------------------------------------------------------------------------------------------------------------------
+Genom att lägga till f efter talet säger vi explicit att y ska tolkas som en float.
+1. What is the recommended method to use when trying to determine if two floatingpoint values are equal, and why? 
+----------------------------------------------------------------------------------------------------------------------------
+
+Eftersom jämförning av floats (flyttalspreprocessorn är inte tillräckligt precis) kan ge fel resultat verkar det vanligaste sättet att använda sig av epsilon, dvs. ett värde som representerar en godtagbar felmarginal. Det kan se ut på detta sätt för floats: if (fabs(a-b) < epsilon) {...}.
+Questions 0.4.3
+KOD
+int count_if_followed_by (char const * p, int len, char a, char b) {
+ int        count = 0;
+ char const * end = p + len;
+
+ while (p != end) {
+   if (*p == a && *(p+1) == b)
+     count += 1;
+
+   ++p;
+ }
+----------------------------------------------------------------------------------------------------------------------------
+Why is it important to test the boundary conditions of an implementation,
+    especially in the case of `count_if_followed_by`?
+----------------------------------------------------------------------------------------------------------------------------
+På grund av “off-by-one” errors. Loopen utförs sålänge som pekaren inte pekar på sista charen men inuti loopen refererar värden utanför pekarens omfång (p+1).
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Questions 0.5.1.1 (birth.cpp)
+KOD
+class A {
+public:
+  A () {
+    std::cout << "default-constructor" << std::endl;
+  }
+
+  A (A const& src) {
+    std::cout << "copy-constructor" << std::endl;
+  }
+
+ ~A () {
+   std::cout << "destructor" << std::endl;
+ }
+
+  A(char const* s) {
+     std::cout << "some other constructor" << std::endl;
+  }
+
+  A& operator= (A const& src) {
+    std::cout << "the assignment operator" << std::endl;
+    return *this;
+  }
+};
+
+void no_ref(A a) {}
+void with_ref(const A & a) {}
+
+int main()
+{
+   A a("my name is a");
+
+   A b = a;          // what is the difference
+   A c(a);           // between these three
+   A d;              // forms of initialization?
+
+   d = a;
+
+     no_ref (a);     // will this copy the value of `a`?
+   with_ref (a);     // will this copy the value of `a`?
+
+   A *aa = new A[5];
+   delete aa;        // what will happen?
+   return 0;
+}
+----------------------------------------------------------------------------------------------------------------------------
+1.        What constructors are invoked, and when?
+----------------------------------------------------------------------------------------------------------------------------
+
+
+Det inleds med att “some other constructor” kallas vid första raden i main då denna är den enda som tar en char pekare. 
+Därefter kallas 2 copy constructors eftersom de nästa 2 raderna skapar ett nytt A med samma värde som det första som skapades.
+Efter detta skapas ett nytt A utan initialt värde vilket gör att default konstruktorn kallas.
+Sedan assignas det nya A:et från förra raden till samma värde som vårat första A och därför kommer en assignment operator att utföras.
+no_ref kallas sedan vilket kommer att skapa en kopia av a och sedan kalla på destruktorn när metoden lämnas.
+Sedan allokeras minne för 5 A:n vilket resulterar i 5 anrop till default konstruktorn.
+
+
+Slutligen kallas 9 destruktorer, 5 för de nyligen allokerade A:na, och de 4 resterande i slutet av main. Detta sker dock endast om delete-satsen är på följande form: (delete []aa;), annars är beteendet odefinierat.
+
+
+I kod: (mer lättläst…)
+
+
+    A a("my name is a"); // some other constructor
+    std::cout << "-" << std::endl;
+    A b = a;          // what is the difference, copy constructor
+    std::cout << "--" << std::endl;
+    A c(a);           // between these three, copy constructor
+    std::cout << "---" << std::endl;
+    A d;              // forms of initialization?, default constructor, initierar här utan värde vilket resulterar i default.
+    std::cout << "----" << std::endl;
+    d = a; // assignment operator
+
+
+    no_ref (a);     // will this copy the value of `a`? JA
+      // Destructor (sker då no_ref lämnas)
+    with_ref (a);     // will this copy the value of `a`? NEJ
+
+
+    A *aa = new A[5]; // default x 5
+    delete []aa;        // what will happen?, utan brackets undefined, annars destructor x 5
+    // Destructor x 4
+    return 0;
+
+
+LISTA
+        A(char const* s) // Some other
+
+       A (A const& src) // Copy
+       A (A const& src) // Copy
+       A ()                // Default
+
+       A& operator= (A const& src) // Assignment
+
+       A (A const& src)        // Copy
+       ~A ()                // Destructor
+
+       5 * A ()                // Default * 5
+       5 * ~A ()                // Destructor * 5
+        Slutligen destructor * 4 för de överblivna objekten
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+2.        Will there be any temporaries created, if so; when?
+----------------------------------------------------------------------------------------------------------------------------
+no_ref skapar en temporär kopia.
+----------------------------------------------------------------------------------------------------------------------------
+3.        When are the objects destructed, and why? 
+----------------------------------------------------------------------------------------------------------------------------
+Första destruktorn sker då no_ref lämnas eftersom en kopia skapas där som sedan försvinner när metoden är klar. 
+5 destruktorer kallas då vi deletar aa.
+Alla de andra sker i slutet av main (förutom delete satsen givetvis) eftersom vi där är klara med alla objekten. Detta eftersom de inte är dynamiskt allokerade.
+
+----------------------------------------------------------------------------------------------------------------------------
+4.        What will happen if we try to free a dynamically allocated array through delete p, instead of delete [] p?  // Hör den här frågan till nästa del av uppgiften?
+
+
+Vanliga delete ska användas då man har en pekare till ett objekt som inte är en array. Beteendet är annars odefinierat.
+
+----------------------------------------------------------------------------------------------------------------------------
+Questions 0.5.2.1 (Valgrind)
+Valgrind ser att vår delete-sats är felaktig eftersom den inte innehåller brackets vilket resulterar i minnesläckor.
+
+----------------------------------------------------------------------------------------------------------------------------
+Questions 0.5.3.1 (bad_plumming.cpp)
+KOD
+struct Data {
+   int x, y, z; // 3*4=12 bytes stor
+};
+
+Data ** foo(Data ** v, int x) {
+   for (int i = 0; i < x; i++)
+       if (v[i] != 0)
+           v[i] = new Data; // 12 bytes
+   return v;
+}
+
+int main () {
+   const int size = 5;
+   Data ** v = new Data * [size]; // pekare = 8 bytes
+   foo(v, size);
+}
+----------------------------------------------------------------------------------------------------------------------------
+1.        valgrind indicates that the program suffers from a few problems, which and why? 
+----------------------------------------------------------------------------------------------------------------------------
+Det finns en minnesläcka och vi har ett oinitierat värde. Vi allokerar minne till v vilket inte frigörs. (Jämför också oinitierade värden med 0)
+----------------------------------------------------------------------------------------------------------------------------
+2.        If you comment out the entire if-block in foo, is there any difference in how much memory that is leaked? 
+----------------------------------------------------------------------------------------------------------------------------
+LEAK SUMMARY:
+==61159==    definitely lost: 40 bytes in 1 blocks
+==61159==    indirectly lost: 0 bytes in 0 blocks
+
+
+Ja, fler minnesläckor uppstår. Förutom att v (som är 5*8 bytes stor) fortfarande orsakar minnesläckor kommer 5 Dataobjekt skapas i for-loopen som är 12 bytes stora var och på så sätt orsaka en 60 bytes stor indirekt minnesläcka.
+----------------------------------------------------------------------------------------------------------------------------
+3.        Revert bad_plumming.cpp to its original state, then only comment out the line that contains the if-condition.
+----------------------------------------------------------------------------------------------------------------------------
+        LEAK SUMMARY:
+==61173==    definitely lost: 60 bytes in 5 blocks
+==61173==    indirectly lost: 0 bytes in 0 blocks
+
+
+delete [] p frigör pekarminne (dvs. 5*8 bytes). 60 bytes memory loss kommer från de 5 dataobjekten som skapas i foo och aldrig deletas.
+----------------------------------------------------------------------------------------------------------------------------
+4.        What will happen if we try to free a dynamically allocated array through delete p, instead of delete [] p? (Denna fråga står på förra delen av uppgiften men formuleringen gör att vi tror att den är till för denna del)
+----------------------------------------------------------------------------------------------------------------------------
+Eftersom p är en pekare kommer detta också fungera, 5*8 bytes kommer fortfarande att frigöras.
+
+----------------------------------------------------------------------------------------------------------------------------
+Questions 0.6.3
+1.        operator[] must in some cases be marked as const, but not always; when, and why? 
+----------------------------------------------------------------------------------------------------------------------------
+Om vektorn är const måste metoden som skriver över operator [] också vara const för att kunna ändra på dess värden.
+----------------------------------------------------------------------------------------------------------------------------
+2.        The semantics of copying a UIntVector might not be trivial; why must we manually implement the relevant code, instead of having the compiler generate it for us? 
+----------------------------------------------------------------------------------------------------------------------------
+Att låta kompilatorn generera kod kan leda till felaktigt beteende. Kompilatorn kan omöjligt veta vad vi vill åstadkomma i en viss konstruktor.
+----------------------------------------------------------------------------------------------------------------------------
+Questions 0.7.3
+
+
+Iterating over a range of elements can be done with a range-based for-loop, but the type of source must meet certain requirements; what are they?
+----------------------------------------------------------------------------------------------------------------------------
+Typen som itereras över (t.ex. array eller objekt, se range-based loop cppreference) måste implementera en begin() och end() metod som ska returnera iteratorer.
+
+
+----------------------------------------------------------------------------------------------------------------------------
+The C++ Standard sometimes states that a type in the Standard Library is unspecified; why do you think that is?
+----------------------------------------------------------------------------------------------------------------------------
+Man säger att typedef är möjligt för användning men att de alias som används för typen beror på implementationen och är således inte del av det publika interfacet.

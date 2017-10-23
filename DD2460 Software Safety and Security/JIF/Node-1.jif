@@ -1,0 +1,55 @@
+// Implement a linked list using the Node class
+// Only Alice and Bob are allowed to access the integers stored in the list
+// Alice, Bob and Chuck are allowed to know how many elements are in the list
+// Write the annotations (labels) for fields and methods.
+
+public class Node {
+	public int {Alice&Bob->Alice, Bob}value; // Alice and Bob can access value
+	public Node {Alice&Bob->Alice, Bob, Chuck} next; // Chuck also needs access to next to find out list length
+	
+	public Node{Alice&Bob->Alice, Bob, Chuck}(int {Alice&Bob->Alice, Bob} value) {
+		this.value = value;
+		this.next = null;
+	}
+
+	// append an element at the end of the list
+	public void add{Alice&Bob->Alice, Bob, Chuck}(int {Alice&Bob-> Alice, Bob}value) {
+		if(this.next == null) {
+			this.next = new Node(value);
+			return;
+		}
+		try {
+			this.next.add(value);
+		} catch (NullPointerException e) {
+			// Do nothing
+		}
+	}
+
+	// returns the length of the list
+	public int length{Alice&Bob->Alice, Bob, Chuck}() : {Alice&Bob-> Alice, Bob}{
+		if(this.next == null) {
+			return 1;
+		}
+		try {
+			return this.next.length() + 1;
+		} catch (NullPointerException e) {
+			// Do nothing
+		}
+	}
+
+	// returns the i-th element of the list
+	public int {Alice&Bob-> Alice, Bob} get{Alice&Bob-> Alice, Bob}(int {Alice&Bob-> Alice, Bob} i) : {Alice&Bob-> Alice, Bob}{
+		if(i == 0) {
+			return this.value;
+		}
+		if(this.next == null) {
+			return -1;
+		}
+		try {
+			return this.next.get(i-1);
+		} catch (NullPointerException e) {
+			// Do nothing
+		}
+	}
+
+}

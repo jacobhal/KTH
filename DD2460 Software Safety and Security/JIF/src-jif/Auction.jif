@@ -1,0 +1,32 @@
+// Principal P is the seller.
+// P2 and P3 are the buyers
+// Users representing seller and buyers are public
+// Implement the methods and define the security labels,
+// annotations, and authorities.
+// Hint: You may need declassification.
+
+public class Auction
+	[principal P, principal P2, principal P3]
+	 {
+	private User seller;
+	private User buyer1;
+	private User buyer2;
+	public Auction{}(
+			User seller,
+			User buyer1,
+			User buyer2) {
+		this.seller = seller;
+		this.buyer1 = buyer1;
+		this.buyer2 = buyer2;
+	}
+  // Complete the auction
+  // - The auction has no effect if there is no buyer that offers
+  //   more than the seller's request
+  // - The buyer that offer more win the auction
+  // - The method pay of bank of the winning buyer is invoked to
+  //   execute the monetary transaction
+	public void commit()
+	{
+      ...
+	}
+}

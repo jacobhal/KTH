@@ -1,0 +1,12 @@
+chatsim=.
+
+target=ChatSim
+
+listener=gov.nasa.jpf.listener.PreciseRaceDetector
+cg.threads.break_arrays=true
+
+chatsim.classpath=env,.
+chatsim.sourcepath=.
+
+report.console.property_violation=result,error,trace,snapshot
+vm.reuse_tid=false

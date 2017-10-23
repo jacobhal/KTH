@@ -1,0 +1,7 @@
+// Example 0
+
+public class Sample00 {
+	public static void main(String [] args) {
+		int {Alice->Bob} x = 10 + 25;
+	} 
+}

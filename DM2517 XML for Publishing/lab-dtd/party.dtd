@@ -1,0 +1,65 @@
+<!ELEMENT party (title, date, starttime, endtime?, arranger, location, price?, OSAdate?, description?, contact?, host*, toastmaster*, menu?, guestlist?)>
+
+<!-- Declare entities -->
+<!ENTITY Ouml "&#214;">
+<!ENTITY ouml "&#246;">
+<!ENTITY brkbar "&#166;">
+<!ENTITY ccedil "&#231;">
+<!ENTITY % full_name "firstname, lastname">
+<!ENTITY % contact_info "phone, email">
+<!ENTITY % meal "food*, drink*">
+
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT starttime (#PCDATA)>
+<!ELEMENT endtime (#PCDATA)>
+<!ELEMENT arranger (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
+<!ELEMENT price (#PCDATA)> 
+<!ATTLIST price unit CDATA #IMPLIED>
+<!ELEMENT OSAdate (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT contact (%full_name;, %contact_info;)>
+<!ELEMENT firstname (#PCDATA)>
+<!ELEMENT lastname (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+
+<!ELEMENT host (%full_name;)>
+<!ELEMENT toastmaster (%full_name;)>
+
+
+<!-- MENU -->
+
+
+<!ELEMENT menu (starter?, main_course, dessert?)>
+<!ELEMENT starter (%meal;)>
+<!ELEMENT main_course (%meal;)>
+<!ELEMENT dessert (%meal;)>
+
+<!ELEMENT food (#PCDATA)>
+<!ATTLIST food type (shellfish | fish|  meat | vegetarian | dairy | other) #IMPLIED>
+<!ELEMENT drink (#PCDATA)>
+<!ATTLIST drink type (beer | red_wine | white_wine | coffee | cognac | tea | punch | other) #IMPLIED>
+
+
+<!-- GUESTLIST -->
+
+
+<!ELEMENT guestlist (guest*)>
+
+<!ELEMENT guest (%full_name;, affiliation?, placementpreferences?, foodrestrictions?, drinkrestrictions?)>
+<!ATTLIST guest id ID #REQUIRED>
+<!ATTLIST guest sex (male | female | unknown) #REQUIRED>
+
+<!ELEMENT affiliation (#PCDATA)>
+
+<!ELEMENT placementpreferences (id+)>
+<!ELEMENT id EMPTY>
+<!ATTLIST id nextto (yes | no) #REQUIRED>
+<!ATTLIST id id IDREF #REQUIRED>
+
+<!ELEMENT foodrestrictions (ingredient+)>
+<!ELEMENT ingredient (#PCDATA)>
+
+<!ELEMENT drinkrestrictions (drink+)>

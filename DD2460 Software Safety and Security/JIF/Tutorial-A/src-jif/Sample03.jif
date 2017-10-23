@@ -1,0 +1,13 @@
+// Language features / Label inference
+
+import jif.principals.*;
+
+public class Sample03 {
+	public static void main(String [] args) {
+		int {Alice -> Bob} x = 1;
+		int {Alice -> Bob} z;
+		
+		int y = x;
+		z = y;
+	} 
+}

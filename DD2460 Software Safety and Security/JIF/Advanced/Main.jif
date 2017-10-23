@@ -1,0 +1,45 @@
+// Implement an Auction system
+// - An auction is represented by an instance of the class Auction
+// - For every Auction there are three principals: one seller and
+//   two buyers
+// - Every principal owns a BankAccount.
+//   - A BankAccount holds the balance and the history of transactions
+//     performed by the principal
+//   - The BankAccount of principals is public
+//   - Every principal aims to keep its balance and transactions private
+// - Every principal also owns an instance of the class User
+//   - A User holds the BankAccount of the principal and how much
+//     he/she is willing to pay (receive) for buying (selling) the good
+//   - The User of principals is public
+//   - Every principal aims to keep its good valuation private
+// - The method commit() is used to execute the auction.
+// DO NOT CHANGE Main.jif
+// Implement User, BankAccount and Auction, define the security labels,
+// annotations, and authorities.
+// Hint: You may need declassification.
+
+
+public class Main authority (*) {
+	public static void main{}(String [] args)
+		where  authority (Alice&Bob&Chuck)
+	  {
+        // Alice has 1000 Sek in her bank Account
+        //   She value the good 100 Sek
+        //   She is a buyer
+        BankAccount[Alice] b1 = new BankAccount[Alice](1000);
+        User[Alice] u1 = new User[Alice](b1, 100);
+
+        // Bob has 1000 Sek in his bank Account
+        //   He value the good 120 Sek
+        //   He is a buyer
+        User[Bob] u2 = new User[Bob](new BankAccount[Bob](1000), 120);
+
+        // Chuck has 1000 Sek in his bank Account
+        //   He value the good 70 Sek
+        //   He is a seller
+        User[Chuck] u3 = new User[Chuck](new BankAccount[Chuck](500), 70);
+
+        Auction[Chuck, Alice, Bob] a = new Auction[Chuck, Alice, Bob](u3, u1, u2);
+        a.commit();
+    }
+}

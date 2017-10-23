@@ -1,0 +1,16 @@
+// Language features / inplicit flow
+
+import jif.principals.*;
+
+public class Sample04a {
+	public static void main(String [] args) {
+		
+		boolean {Alice -> Bob,Chuck} l = false;
+		boolean {Alice -> Bob} h = true;
+		if (h) {
+			// real label of v is the conjunction with the pc-label
+			boolean {Alice -> Bob,Chuck} v = true;
+    		// l = v;
+		}
+	} 
+}

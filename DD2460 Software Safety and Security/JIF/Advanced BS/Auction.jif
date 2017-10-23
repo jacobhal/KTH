@@ -1,0 +1,49 @@
+// Principal P is the seller.
+// P2 and P3 are the buyers
+// Users representing seller and buyers are public
+// Implement the methods and define the security labels,
+// annotations, and authorities.
+// Hint: You may need declassification.
+
+public class Auction
+	[principal P, principal P2, principal P3]
+	 {
+	private User[P] {P->_} seller;
+	private User[P2] {P2->_} buyer1;
+	private User[P3] {P3->_} buyer2;
+	public Auction{P&P2&P3}(User[P] {P->_} seller, User[P2] {P2->_} buyer1, User[P3] {P3->_} buyer2) {
+		this.seller = seller;
+		this.buyer1 = buyer1;
+		this.buyer2 = buyer2;
+	}
+  // Complete the auction
+  // - The auction has no effect if there is no buyer that offers
+  //   more than the seller's request
+  // - The buyer that offer more win the auction
+  // - The method pay of bank of the winning buyer is invoked to
+  //   execute the monetary transaction
+	public void commit() throws Exception where authority (P&P2&P3)
+	{
+		if (buyer1 != null && buyer2 != null && seller != null) {
+			int offer1 = buyer1.getValue();
+			int offer2 = buyer2.getValue();
+			int price = seller.getValue();
+			if (offer1 >= price || offer2 >= price) {
+	      		BankAccount {P->_} sellBank = seller.getBank();
+	      		if (offer1 >= offer2) {
+	      			BankAccount {P2->_} buyBank = buyer1.getBank();
+	      			//int {P2->P2} offer1_declassified = declassify(offer1, {P2->P2} to {});
+	      			//declassify({P2->P2;P3->P3} to {P2->_}) { // Borde typ inte behövas?
+	      			buyBank.pay(P, declassify(offer1, {}), declassify(sellBank, {}));
+	      			//}
+	      		} else {
+	      			BankAccount {P3->_} buyBank = buyer2.getBank();
+	      			//int {P3->P3} offer2_declassified = declassify(offer2, {P3->P3} to {});
+	      			//declassify({P2->P2;P3->P3} to {P3->_}) { // Borde typ inte behövas?
+	      			buyBank.pay(P, declassify(offer2, {}), declassify(sellBank, {}));
+	      			//}
+	      		}
+	      	}
+		} 
+	}
+}

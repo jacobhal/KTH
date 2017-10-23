@@ -1,0 +1,52 @@
+// Introduction
+
+import java.io.PrintStream;
+import jif.runtime.Runtime;
+
+public class Sample08StdOut {
+	// p is the principal representing the user that invoked the main.
+    // begin-label, {p:} The begin-label ensures that the method can be called only
+    // if the pc of the caller is no more restrictive than {p:}
+    // {p:} = {p -> *; _ -< _}
+    // - p -> * means p belives taht information can be read only by p or the top principal
+    // - _ -< _ is the most restrictive integrity policy, since all principals believe
+    //          that any principal may have influenced the information.
+    // if we remove the begin-label the program deos not compile
+    // 		The assigment PrintStream out = runtime.out(); fails
+    //		look at sig-src/jif/runtime/Runtime.jif
+    //		 runtime.out has type
+    // 		 	PrintStream[{P:;_!:_}]{P:;P!:}
+    //			It has a policy label paramater {p ->*, _<-_}
+    //			and policy {p ->*, p<-*}
+    // 		However out has a different label parameter
+    // Even if we force out to have type PrintStream[{p:}] the compilation fail in
+    //	out.println(line);
+    //	Infact the print stream expect a variable that can be accessed by p and *
+    //	while the actual parameter label is {_ -> _ ; _ <- * meet caller_pc}
+    //		_ -> _ is not a problem, it is not restrictive _ -> _ smaller of everithing
+    //		_ <- * anyone can have changed the info
+    //	    however, printing leak the program_counter, so we must ensure that the pc policy is not more restrictive that {p->}
+    // The end label is {p:}
+    //      The end-label of a method specifies the pc at the point
+    //      of termination of the method, and is an upper bound on the
+    //		information that may be learned by observing whether the method terminates normally.
+    // If we remove :{p:} the compilation fail
+    // However, this can be solved by interception the null pointer exception
+    public static void main{p:}(principal{} p, String{}[]{} args)  {
+        Runtime[p] runtime;
+        try {
+            runtime = Runtime.getRuntime();
+        }
+        catch (SecurityException e) {
+            runtime = null;
+        }
+
+		try {
+        	PrintStream out = runtime.out();
+
+        	String line = "hello";
+        	out.println(line);
+        } catch (NullPointerException ex) {
+        }
+    }
+}

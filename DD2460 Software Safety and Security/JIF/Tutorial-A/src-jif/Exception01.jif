@@ -1,0 +1,6 @@
+public class Exception01 {
+	public void hello(int {Alice->Alice}x, int {Alice->Alice} y) throws ArithmeticException {
+		//int z = x / y;
+		return;
+	}
+}

@@ -1,0 +1,175 @@
+body, html {
+	height: 100%;
+}
+
+
+.clear { 
+	clear: both !important; 
+}
+
+h1 {
+	padding-bottom: 10px;
+	border-bottom: solid 2px black;
+}
+
+/* General Navbar styling */
+nav.navbar {
+	padding: 15px 15px 30px 15px;
+	background-color:rgb(183, 183, 179);
+	margin-bottom: 0;
+
+}
+
+/* Navbar brand */
+#navbar-brand {
+	font-size: 40px;
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-collapse {
+	margin-top: 18px;
+	font-size: 20px;
+}
+
+/* Sidebar */
+
+div#sidebar {
+	float: left;
+    width: 20%;
+    border: 5px solid #000;
+    border-top: 3px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    height: 100%;
+}
+
+div#sidebar > *:not(.box1):not(.box2) {
+	margin-left: 10px;
+}
+
+div#sidebar label {
+	margin-right: 10px;
+}
+
+div#sidebar input#people {
+	width: 80px;
+}
+
+div#sidebar .box1 {
+	background-color: rgb(183, 183, 179);
+	border-top: solid 2px black;
+	border-bottom: solid 2px black;
+	float: left;
+	width: 100%;
+	padding: 0 10px 0 10px;
+}
+
+div#sidebar .box2 {
+	float: left;
+	width: 100%;
+	padding: 0 10px 0 10px;
+}
+
+div#sidebar .box2 h4 {
+	color: red;
+}
+
+div#sidebar .box2 {
+	text-align: center;
+}
+
+div#sidebar .box2 a {
+	background-color: yellow;
+	border: solid 2px black;
+}
+
+/* Main content nav and list of dishes */
+div.main-content {
+	float: left;
+	display: block;
+	width: 80%;
+	border: 5px solid #000;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+}
+
+
+/* List of dishes nav*/
+div#main-nav-inner {
+	border: solid 2px black;
+	padding: 20px;
+	padding-left: 36px;
+	margin: 0;
+	border-right: 0;
+	border-left: 0;
+	background-color: yellow;
+}
+div#main-nav-inner h2{
+	border-bottom: solid 2px black;
+
+}
+
+.form-control-modified {
+	width: auto !important;
+	display: inline-block !important;
+}
+
+#dish-select {
+	margin-left: 80px;
+	width: 200px !important;
+}
+
+.form-inline {
+	padding: 0 0 20px 0;
+}
+
+
+
+
+/* List of dishes content */
+
+div#dishlist {
+	padding: 60px 40px 40px 30px;
+	overflow: auto;
+	border-left: 2px solid #000;
+}
+
+div.col-sm-2:not(:first-child,:last-child) {
+  padding-right:20px;
+  padding-left:20px;
+}
+
+div.thumbnail img {
+	border: solid 2px black;
+	margin-bottom: 0;
+	width: 100%;
+	height: 100px !important;
+}
+
+div.row div.thumbnail h3{
+	overflow: auto;
+	border: solid 2px black;
+	border-top: none;
+	width: 100%;
+	margin-top: 0;
+	text-align: center;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.caption {
+	margin: 0 !important;
+	padding: 0 !important;
+
+}
+
+div.caption p {
+	height: 100px;
+	overflow: auto;
+}

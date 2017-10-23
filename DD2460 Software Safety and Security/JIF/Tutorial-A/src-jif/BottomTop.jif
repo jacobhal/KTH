@@ -1,0 +1,19 @@
+// Example 0
+
+public class BottomTop {
+	public static void main(String [] args) {
+		int {Alice->Alice} x = 1;
+		int {Alice->*} y = 1;
+		int {Alice->_} z = 1;
+		int {Bob->*} y1 = 1;
+		int {Bob->_} z1 = 1;
+		y = x;
+		// z = x;
+		x = y; // Why is it correct? (Becouse Alice is able to read y)
+		// z = y;
+		//x = y1;
+		x = z;
+		y = z;
+		x = z1;
+	} 
+}

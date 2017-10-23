@@ -1,0 +1,11 @@
+public class ActFor {
+	public static void main(String [] args) {
+		int {Alice->Dolores} x = 0;
+		int {Alice->Chuck} y = 0;
+		
+		if (Chuck actsfor Dolores) {
+			y = x;
+		}
+		
+	}
+}

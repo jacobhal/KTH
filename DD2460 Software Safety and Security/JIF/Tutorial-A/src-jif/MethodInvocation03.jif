@@ -1,0 +1,20 @@
+
+public class MethodInvocation03 {
+	static boolean {Bob->Bob} a;
+
+	public static void hello{Bob->Bob,Chuck}() {
+		a = true;
+	}
+
+	public static void main{}(String [] params) {
+		//boolean {Bob->Alice,Bob,Chuck} cnd = true;
+		//boolean {Bob->Alice,Chuck} cnd = true;
+		//boolean {Alice->Alice,Bob,Chuck} cnd = true;
+		//boolean {Alice&Bob->Alice,Bob,Chuck} cnd = true;
+		//boolean {Alice,Bob->Alice,Bob,Chuck} cnd = true;
+		boolean {Alice->Alice,Bob,Chuck meet Bob->Alice,Bob,Chuck} cnd = true;
+		if (cnd) {
+			hello();
+		}
+	}
+}

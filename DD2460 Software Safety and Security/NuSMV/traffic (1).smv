@@ -1,0 +1,42 @@
+-- Advanced NuSMV exercise 1.
+-- Erik Borgström.
+-- Christoffer Blades.
+
+MODULE light(active, transition)
+VAR
+	state : { green, yellow, red_yellow, red };
+ASSIGN
+	init(state) = red;
+	next(state) = case
+		active 	& transition	: yellow;
+		active	& !transition	: green;
+		!active & transition 	: red_yellow;
+		TRUE 					: red;
+	
+-- Work in progress...
+MODULE sensor()
+VAR
+	state : {};
+ASSIGN
+	
+
+MODULE main
+VAR
+	traffic : { street1, street1_to_street2, street2_to_street1, street2 }
+	light1 : light(traffic = street1, next(traffic) = street1_to_street2 | next(traffic) = street2_to_street1);
+	light2 : light(traffic = street2, next(traffic) = street2_to_street1 | next(traffic) = street1_to_street2);
+	sensor1 : 
+	sensor2 : 
+ASSIGN
+	init(traffic) = none;
+	next(traffic) = case
+		traffic = none & sensor1 				: street1;
+		traffic = none & sensor2 				: street2;
+		traffic = street1 & sensor1 & sensor2	: { street1, street1_to_street2 };
+		traffic = street1 & sensor2				: street1_to_street2;
+		traffic = street2 & sensor1 & sensor2	: { street2, street2_to_street1 };
+		traffic = street2 & sensor1				: street2_to_street1;
+		
+		traffic = street1_to_street2			: street2;
+		traffic = street2_to_street1			: street1;
+	

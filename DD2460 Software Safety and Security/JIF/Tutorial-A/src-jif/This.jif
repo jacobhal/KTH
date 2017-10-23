@@ -1,0 +1,12 @@
+public class This {
+	public static int {Alice->Alice,Bob} x;
+	public int {Alice->Alice,Bob} y;
+	
+	public void  hello{Alice->Alice,Bob} () {
+		x=this.y;
+	}
+	public static void test {Alice->Alice,Bob} () {
+		This {Alice->Alice,Bob} o = new This();
+		o.hello();
+	}
+}

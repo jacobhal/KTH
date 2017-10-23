@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+</head>
+<body>
+	<iframe id="i1" src="http://dasak.csc.kth.se/zoobar/transfer.php">
+
+		b
+
+	</iframe>
+	<iframe id="i2" src="http://dasak.csc.kth.se/zoobar/transfer.php"></iframe>
+</body>
+<script>
+		var iframe = document.getElementById("i1");
+
+		var frames = (iframe.contentDocument) ? iframe.contentDocument : iframe.contentWindow.document;
+		//alert(frames);
+		frames.body.style.backgroundColor = "red";
+		//alert(frames);
+		//frames.getElementById("user")[0].insertData(0, "Fuck you");
+	</script>
+
+</html>

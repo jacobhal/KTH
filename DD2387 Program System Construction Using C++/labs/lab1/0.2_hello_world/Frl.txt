@@ -1,0 +1,13 @@
+tempate <int M> class Song 
+{
+	static void print() {
+		cout << M << "flaskor på väggen";
+		Song <M - 1>::print();
+	}
+}
+template<>
+	public class Song<O>
+
+int main () {
+	Song<10>::print();
+}

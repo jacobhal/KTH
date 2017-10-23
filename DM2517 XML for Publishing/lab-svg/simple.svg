@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+ xmlns:xlink="http://www.w3.org/1999/xlink" 
+ version="1.1" baseProfile="full" 
+ width="100%" height="100%">
+  <line x1="720" y1="0" x2="720" y2="450" style="stroke:rgb(0,0,0);stroke-width:2" id="line" />
+  	<!-- Group circle, image and text element -->
+  	<g id="group">
+	  		<circle cx="720" cy="450" r="102" stroke="red" stroke-width="4" fill="red" />
+			<image id="image" xlink:href="world.gif" x="620" y="350" height="200px" width="200px"/>
+			<text id="text" x="650" y="450" font-family="Verdana" font-size="20pt" fill="red" >SVG &#228;r kul</text>
+	</g>
+
+	<animateTransform xlink:href="#image" attributeType="xml" attributeName="transform" type="rotate" 
+				values="0 720 450;360 720 450;0 720 450" dur="2s" additive="sum" repeatCount="indefinite" />
+
+	<animateTransform xlink:href="#text" attributeType="xml" attributeName="transform" type="rotate" 
+				values="0 720 450;360 720 450;0 720 450" dur="2s" additive="sum" repeatCount="indefinite" />
+
+	<!-- Line height animation -->
+	<animate 
+    xlink:href="#line"
+    attributeName="y2"
+    values="450;200;450"
+    dur="2s"
+    begin="0s"
+    fill="freeze"
+    repeatCount="indefinite"
+    id="l1" />
+
+	<!-- Text color animation -->
+    <animate 
+    xlink:href="#text"
+    attributeName="fill"
+    values="red"
+    dur="0.5s"
+    begin="0s; color4.end"
+    fill="freeze"
+    id="color1" />
+
+     <animate 
+    xlink:href="#text"
+    attributeName="fill"
+    values="blue"
+    dur="0.5s"
+    begin="color1.end"
+    fill="freeze"
+    id="color2" />
+
+     <animate 
+    xlink:href="#text"
+    attributeName="fill"
+    values="yellow"
+    dur="0.5s"
+    begin="color2.end"
+    fill="freeze"
+    id="color3" />
+
+    <animate 
+    xlink:href="#text"
+    attributeName="fill"
+    values="green"
+    dur="0.5s"
+    begin="color3.end"
+    fill="freeze"
+    id="color4" />
+
+    <animateTransform 
+    xlink:href="#group"
+    attributeName="transform"
+    attributeType="XML"
+    type="translate"
+    values="0 0;0 -200;0 0"
+    dur="2s"
+    begin="0s"
+    fill="freeze"
+    repeatCount="indefinite"
+    additive="sum"/>
+
+
+</svg>

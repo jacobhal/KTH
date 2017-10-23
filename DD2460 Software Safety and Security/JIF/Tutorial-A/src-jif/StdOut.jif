@@ -1,0 +1,26 @@
+// Introduction
+
+import java.io.PrintStream;
+import jif.runtime.Runtime;
+
+public class StdOut {
+    public static void main{Alice->Alice,Bob}(String [] args)  {
+        Runtime[Alice] runtime;
+        try {
+            runtime = Runtime.getRuntime();
+        }
+        catch (SecurityException e) {
+            runtime = null;
+        }
+
+		try {
+        	//PrintStream[{Alice->_}] out = runtime.out();
+        	PrintStream[{Alice->*}] out = runtime.out();
+
+			String line = "hello";
+        	//String {Bob->Chuck}line = "hello";
+        	out.println(line);
+        } catch (NullPointerException ex) {
+        }
+    }
+}

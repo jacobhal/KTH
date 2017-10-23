@@ -1,0 +1,30 @@
+// P is the principal controlling the BankAccount
+// Implement the methods and define the security labels,
+// annotations, and authorities.
+// Hint: You may need declassification.
+
+public class BankAccount [principal P] {
+	private int balance;
+	private Node transactions;
+	public BankAccount(int  balance) {
+		this.balance = balance;
+		this.transactions = new Node(balance);
+	}
+	// P1 is the principal receiving the payment
+	// value is the amount exchanged
+  // - value is subtracted from the balance
+  // - a transaction with the paid amount is added
+  // - the receiver's Bank receive method is invoked
+  // - the method should have no effect (or fail) if
+  //   the balance is smaller than value.
+	public void pay(principal P1, int value, BankAccount bank)
+	{
+      ...
+	}
+
+  // - value is added to balance
+  // - a transaction with the received amount is added
+	public void receive(int value) {
+      ...
+	}
+}

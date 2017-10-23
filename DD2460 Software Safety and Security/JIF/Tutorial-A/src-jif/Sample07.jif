@@ -1,0 +1,37 @@
+// Introduction
+
+public class Sample07 {
+	public static void main(String [] args) {
+		int {Alice -> Alice} x = 42;
+		int {Bob -> Bob} y = 53;
+		int {Chuck -> Chuck} z = 11;
+		
+		int {Alice ->Alice } r1 = x+x;
+		int {Alice ->Alice; Bob->Bob } r2 = x+y;
+		int {Alice ->Alice; Bob->Bob; Chuck->Chuck } r3 = x*y*z;
+		
+		int {Alice ->Alice } r4 = succ(x);
+		int {Alice ->Alice; Bob->Bob } r5 = succ(y);
+		
+		int {Alice ->Alice } r6 = half(x);
+		
+		//int {Bob ->Bob } r7 = zero(x);
+		int {Bob ->Bob } r7 = zero1(x);
+		
+	}
+	
+	public static int succ(int x) {
+		return x+1;
+	} 
+	
+	public static int half(int x) {
+		return x/2;
+	}
+
+	public static int zero(int x) {
+		return x*0;
+	}
+	public static int {_->_} zero1(int x) {
+		return 0;
+	}
+}

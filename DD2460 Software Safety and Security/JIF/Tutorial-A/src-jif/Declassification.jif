@@ -1,0 +1,66 @@
+/*
+The authority is essentially the capability
+to act for some set of principals. The authority
+of a principal is required to perform actions that
+may compromise the security of a principal, such as
+downgrading information.
+
+the class containing the code may declare that it has
+the authority of some principal using an authority clause 
+*/
+public class Declassification authority (Alice & Bob) {
+	int {Alice->Chuck} y;
+	void doA {Alice->Chuck,Bob}(int {Alice->Alice} x) {
+        // this method body does not have the authority
+        // (no "where authority" clause)
+        if (x > 0) {
+//        	declassify ({Alice->Alice} to {Alice->Chuck}) {
+//	        	y = 10;
+//	        }
+	    }
+    }	
+	void doB {Alice->Chuck,Bob}(int {Alice->Alice} x)
+		 where authority (Alice & Bob) {
+        // this entire method body has the authority of both Alice and Bob
+        if (x > 0) {
+        	declassify ({Alice->Alice} to {Alice->Chuck}) {
+	        	y = 10;
+	        }
+	    }
+    }	
+
+   void doC {Alice->Chuck,Bob}(int {Alice->Alice,Bob} x)
+		 where authority (Alice & Bob) {
+        if (x > 10) {
+        	//declassify ({Alice->Alice,Chuck} to {Alice->Chuck}) {
+        	declassify ({Alice->Alice} to {Alice->Chuck}) {
+	        	y = 10;
+	        }
+        }
+    }	
+    
+	int {Alice&Bob->Chuck} y1;
+     void doD {Alice->Chuck,Bob}(int {Alice->Alice,Bob; Bob->Chuck} x)
+		 where authority (Alice) {
+        if (x > 10) {
+        	declassify ({Alice->Alice; Bob->Chuck} to {Alice&Bob->Chuck}) {
+	        	y1 = 10;
+	        }
+        }
+    }	
+
+     void doE {Alice->Chuck,Bob}(int {Alice->Alice,Bob; Bob->Chuck} x)
+		 where authority (Alice & Bob) {
+        if (x > 10) {
+        	declassify ({Alice->Alice; Bob->Chuck} to {Alice->Chuck}) {
+	        	y = 10;
+	        }
+        }
+    }	
+
+     void doF {Alice->Chuck,Bob}(int {Alice->Alice,Bob; Bob->Chuck} x)
+		 where authority (Alice & Bob) {
+        y=declassify (x, {Alice->Alice; Bob->Chuck} to {Alice->Chuck});
+        //y=declassify (x, {Alice->Alice; Bob->Chuck} to {Alice&Bob->Chuck});
+    }	
+}

@@ -1,0 +1,12 @@
+// Introduction
+
+public class Sample05 {
+	public static void main(String [] args) {
+		int {Alice -> Bob} x = 1;
+		int {Alice -> Chuck} y = 5;
+		int {Alice-> Bob} h = 10;
+		//int {Alice->Chuck} z1 = x+y+h;
+		//int {Alice->Chuck ; Alice->Bob} z = x+y;
+		int {Alice->*} z1 = x+y;
+	} 
+}

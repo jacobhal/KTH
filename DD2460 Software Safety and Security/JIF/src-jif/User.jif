@@ -1,0 +1,19 @@
+// P is the principal controlling the User data
+// The principal P wants the good's valuation to be private
+// The BankAccount of the User is public
+// Implement the methods and define the security labels,
+// annotations, and authorities.
+public class User [principal P] {
+	private BankAccount bank;
+	private int  value;
+	public User(BankAccount bank, int value) {
+		this.bank = bank;
+		this.value = value;
+	}
+	public BankAccount getBank() {
+      ...
+	}
+	public int getValue()  {
+      ...
+	}
+}

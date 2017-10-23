@@ -1,0 +1,54 @@
+MODULE sensor(street)
+VAR
+  state : {on, off};
+
+ASSIGN
+  next(state) := case
+    state = on & state = g: {on, off}; -- If the light is green, cars may cross.
+    state = on & street = r: on;
+    TRUE: state;
+  esac;
+
+
+MODULE main
+VAR
+  car_in_box : boolean;
+  street1 : {g, r};
+  street2 : {g, r};
+  sensor1: sensor(street1);
+  sensor2: sensor(street2);
+
+ASSIGN
+  init (car_in_box) := FALSE;
+  init (street1) := r;
+  init (street2) := r;
+
+  next (car_in_box) := case
+    car_in_box & (street1 != r | street2 != r): {TRUE, FALSE};
+    TRUE: car_in_box;
+  esac;
+
+DEFINE
+  both_red := (street1 = r & street2 = r);
+
+TRANS
+  (street1 = g & next(street1) = r) |
+  (street2 = g & next(street2) = r)
+
+-- At most one traffic light in any direction is ever green
+LTLSPEC
+  G( (street1 = g & street2 = r) | (street1 = r & street2 = g) | both_red )
+
+-- It takes one transition for cars to clear the intersection
+LTLSPEC
+  G( (car_in_box & !both_red) & (next(car_in_box) = TRUE | next(car_in_box) = FALSE) )
+
+LTLSPEC
+  G( sensor1.state = on -> F street1 = g ) &
+  G( sensor2.state = on -> F street2 = g )
+
+
+FAIRNESS
+  street1 = g
+FAIRNESS
+  street2 = g

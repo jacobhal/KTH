@@ -1,0 +1,34 @@
+• What commands did you use for importing, checking and signing the key?
+-------------------------------------------------------------------------------------------------------
+gpg --import, checking fingerprint is correct with gpg --fingerprint and gpg --lsign-key to do
+a local signature which marks it as non-exportable
+
+• If you would not trust the fingerprint information on the course website but you would trust Sonja
+Buchegger’s key (available form the course website but also from her personal website), what steps
+and commands would you need to perform to check the course key’s validity?
+-------------------------------------------------------------------------------------------------------
+
+
+
+
+• What is the difference between a normal and a local key signature?
+-------------------------------------------------------------------------------------------------------
+A local key is not exportable which means that only you can see it/use it.
+
+
+• What command did you use to generate the keypair?
+-------------------------------------------------------------------------------------------------------
+gpg --gen-key
+
+• Which identity/identities are assigned to the key?
+-------------------------------------------------------------------------------------------------------
+
+
+• What is the fingerprint of your key?
+-------------------------------------------------------------------------------------------------------
+E231 38CA 5B17 080A 860B  8F53 4415 2562 D332 5197
+This can be checked by first listing your secret keys, then taking the ID of that key and call
+gpg --fingerprint <ID>.
+
+• What subkey(s) are attached to your key? What is the purpose of the subkeys?
+-------------------------------------------------------------------------------------------------------

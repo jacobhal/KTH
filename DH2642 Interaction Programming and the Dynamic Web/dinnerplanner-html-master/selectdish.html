@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+	<!-- Own CSS -->
+	<link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+	<nav class="navbar">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" id="navbar-brand" href="home.html">HOMELETTE</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li><span><i>From the best chefs in the world directly into your kitchen</i></span></li>
+	        
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div id="sidebar">
+		<h2>My Dinner</h2>
+		<form class="form-inline">
+			<div class="form-group">
+				<label for="people">People</label><input class="form-control" id="people" type="number" value="0"/>
+			</div>
+		</form>
+		<div class="box1"><h4 style="float:left;">Dish Name</h4><h4 style="float:right;">Cost</h4></div>
+		<div class="box2">
+			<h4 style="float:left;">Pending</h4>
+			<h4 style="float:right;">0.00</h4>
+			<div class="clear"></div>
+			<hr style="background-color: #000; height: 2px;">
+			<h4 style="float:right;">SEK 0.00</h4>
+			<div class="clear"></div>
+			<a href="#" class="btn btn-default">Confirm Dinner</a>
+		</div>
+		
+	</div>
+	<div class="container main-content" id="maincontent">
+		<div id="main-nav-inner">
+			<h2>Select dish</h2>
+				<form class="form-inline">
+					<div class="form-group">
+					<input type="text" class="form-control form-control-modified" id="search" placeholder="Enter key words">
+					</div>
+					<button type="submit" class="btn btn-default">Search</button>
+
+			        <select class="form-control form-control-modified" id="dish-select" name="dish">
+		                <option value="0">Starter</option>
+		                <option selected value="1">Main course</option>
+		                <option value="2">Dessert</option>
+		            </select>   
+
+				</form>
+		</div>
+		<div class="row" id="dishlist">
+		</div>
+	</div>
+	<div class="clear"></div>
+
+
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+	<!-- The application JavaScript code -->
+	<script src="js/app.js"></script>
+	<script src="js/model/dinnerModel.js"></script>
+	<!-- Views -->
+	<script src="js/view/exampleView.js"></script>
+	<script src="js/view/selectDishView.js"></script>
+	<!-- Controllers -->
+	<script src="js/controllers/dinnerController.js"></script>
+</body>
+</html>
